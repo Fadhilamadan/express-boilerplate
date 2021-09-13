@@ -35,7 +35,7 @@ app.all('*', function (req, res) {
   return response.notFoundResponse(res, 'Not Found');
 });
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
     return response.unauthorizedResponse(res, err.message);
   }
