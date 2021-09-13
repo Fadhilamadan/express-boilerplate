@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
 const response = require('../helpers/response');
+const authenticate = require('../middlewares/jwt');
 const Book = require('../models/BookModel');
 
 exports.bookList = [
+  authenticate,
   (req, res) => {
     try {
       Book.find()
@@ -20,6 +22,7 @@ exports.bookList = [
 ];
 
 exports.bookDetail = [
+  authenticate,
   (req, res) => {
     try {
       if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -47,6 +50,7 @@ exports.bookDetail = [
 ];
 
 exports.bookStore = [
+  authenticate,
   (req, res) => {
     try {
       const bookStore = new Book({
@@ -70,6 +74,7 @@ exports.bookStore = [
 ];
 
 exports.bookUpdate = [
+  authenticate,
   (req, res) => {
     try {
       if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -109,6 +114,7 @@ exports.bookUpdate = [
 ];
 
 exports.bookDelete = [
+  authenticate,
   (req, res) => {
     try {
       if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
